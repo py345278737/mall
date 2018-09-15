@@ -3,21 +3,29 @@ namespace app\api\controller;
 
 use app\api\model\User as UserModel;
 use app\api\service\User as UserService;
+use app\api\validate\OpenidValidate;
+use app\lib\exception\ParameterException;
+use app\lib\exception\SuccessMessage;
 use think\Request;
 
 class User
 {
     public function login()
     {
-       // $request = Request::instance();
-        //$parm = $request->param("code",'');
-        $openid = "sadasdasdasd23dasd".time();
+        (new OpenidValidate())->goCheck();
+        $request = Request::instance();
+        $parm = $request->param("openid",'');
+        $openid = $parm;
         $result =  UserModel::get(['openid'=>$openid]);
+        $userservice = new UserService();
         if (empty($result)){
-
-            $userservice = new UserService();
             $user = $userservice->addUser($openid);
             //添加用户信息到session
+            $userservice->addUserToSession($user);
+        }else{
+            $userservice->addUserToSession($result);
         }
+        //var_dump($_SESSION['user']->username);
+        return json(new SuccessMessage());
     }
 }

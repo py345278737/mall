@@ -25,7 +25,10 @@ class User {
             );
         }
     }
-
+    public function addUserToSession($obj=null){
+        session_start();
+        $_SESSION['user'] = $obj;
+    }
 
 }
 
