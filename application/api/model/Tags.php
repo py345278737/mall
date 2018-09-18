@@ -11,5 +11,5 @@ namespace app\api\model;
 
 class Tags extends BaseModel
 {
-
+    protected $hidden = ['id','createtime'];
 }

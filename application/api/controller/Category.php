@@ -11,6 +11,7 @@ namespace app\api\controller;
 
 use app\api\model\ActiveCategory;
 use app\api\validate\IDMustRequiredValidate;
+use app\api\validate\TypeMustRequiredValidate;
 use app\lib\exception\MissException;
 use think\Request;
 
@@ -37,10 +38,12 @@ class Category
         (new IDMustRequiredValidate())->goCheck();
         $request = Request::instance();
         $id = $request->param('id','');
-        $actives = ActiveCategory::with('actives')->with('actives.tags')->where('id',$id)->find()->toArray();
+        $actives = ActiveCategory::with('actives')->with('actives.tags.tagsDetail')->where('id',$id)->find()->toArray();
         return json([
             'msg' => 'success',
             'data' => $actives
         ],200);
     }
+
+
 }

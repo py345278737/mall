@@ -11,9 +11,9 @@ namespace app\api\model;
 
 class ActiveTags extends BaseModel
 {
-    protected $hidden = ['id','createtime'];
+    protected $hidden = ['id','createtime','tag_id','active_id'];
 
-    public function tagsdetail(){
-        return $this->belongsTo('Tags','active_id','id');
+    public function tagsDetail(){
+        return $this->belongsTo('Tags','tag_id','id');
     }
 }

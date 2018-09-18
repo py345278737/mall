@@ -2,16 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/9/17 0017
- * Time: 16:17
+ * Date: 2018/9/18 0018
+ * Time: 9:38
  */
 
 namespace app\api\validate;
 
 
-class IDMustRequiredValidate extends BaseValidate
+class TypeMustRequiredValidate extends BaseValidate
 {
     protected  $rule = [
-        'id'  => 'require',
+        'type'  => 'require',
     ];
 }

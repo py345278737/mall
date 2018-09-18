@@ -3,7 +3,7 @@
 namespace app\api\validate;
 
 class OpenidValidate extends BaseValidate {
-    protected  $rules = [
+    protected  $rule = [
         'openid'  => 'require',
     ];
 }
