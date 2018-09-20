@@ -70,14 +70,15 @@ class Active
         (new IDMustRequiredValidate())->goCheck();
         $request = Request::instance();
         $id = $request->param('id');
-        $active = ActiveInfo::with('getDetail')->find($id);
+        //find方法返回的是模型对象
+        $active = ActiveInfo::with(['getDetail','comments','comments.user'])->find($id)->hidden(['comments.updatetime']);
         if (!$active){
             throw new MissException();
         }
-        $active = $active->hidden(['createtime','status']);
+        $active = $active->hidden(['createtime','status'])->append(['period'])->toArray();
         return json([
             'msg' => 'success',
-            'data' => $active->toArray()
+            'data' => $active
         ],200);
     }
 }

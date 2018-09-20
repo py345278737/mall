@@ -17,6 +17,9 @@ use think\Request;
 class Category
 {   /*
     *   通过type来获取分类
+    *   all方法返回的是一个数组，如果需要使用hidden或者visibel append扥方法需要用collection()方法转换一下
+    * 1.模型的 all 方法或者 select 方法返回的是一个包含模型对象的二维数组或者数据集对象。
+    * 2.get 或者 find 方法返回的是当前模型的对象实例，可以使用模型方法。
    */
     public function getCategoryByType($type = 1){
         $category = ActiveCategory::all(['type' => $type]);
@@ -42,9 +45,13 @@ class Category
             throw new MissException();
         }
         $actives = $actives->hidden(['actives.images','actives.Info_content','actives.price_content','actives.pre_content','status','yingqi','actives.createtime']);
+        $arr = $actives->toArray()['actives'];
+        foreach ($arr as &$value){
+            $value['period'] = diffBetweenTwoDays($value['s_time'],$value['e_time']) + 1;
+        }
         return json([
             'msg' => 'success',
-            'data' => $actives->toArray()
+            'data' => $arr
         ],200);
     }
 

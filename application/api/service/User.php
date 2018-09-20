@@ -29,7 +29,6 @@ class User {
         session_start();
         $_SESSION['user'] = $obj;
     }
-
 }
 
 

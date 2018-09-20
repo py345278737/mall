@@ -13,16 +13,24 @@ class ActiveInfo extends BaseModel
 {
     protected $hidden = ['active_category_id'];
     protected $type = [
-        's_time' => 'timestamp',
-        'e_time' => 'timestamp'
+        's_time' => 'timestamp:Y-m-d',
+        'e_time' => 'timestamp:Y-m-d'
     ];
     //查询范围
     protected function base($query)
     {
         $query->where('status','<>',0);
     }
+    //获取器
+    public function getPeriodAttr(){
+        $period = diffBetweenTwoDays($this->s_time,$this->e_time) + 1;
+        return $period;
+    }
     public function tags(){
         return $this->hasMany('ActiveTags','active_id','id');
+    }
+    public function comments(){
+        return $this->hasMany('ActiveComment','active_info_id','id');
     }
     public static function getActivesByFilterPaginate($filter,$page = 1,$size = 20){
         if (isset($filter)){
