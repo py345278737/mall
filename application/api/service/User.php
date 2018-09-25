@@ -9,10 +9,12 @@ class User {
         $this->openid = $openid;
         $username = "puqiang";
         $password = md5("chaiwei".$_SERVER['REQUEST_TIME'].rand(1000,9999));
+        $wx_avatar = '/upload/img/sadsadas.jpg';
         $result = UserModel::create([
             "username" => $username,
             "password" => $password,
-            "openid" => $openid
+            "openid" => $openid,
+            "wx_avatar" => $wx_avatar
         ]);
         if(!empty($result)){
             return $result;
