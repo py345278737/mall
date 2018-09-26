@@ -12,7 +12,6 @@ namespace app\api\validate;
 class OrderValidate extends BaseValidate
 {
     protected  $rule = [
-        'id'  => 'require',
         'act_id'  => 'require',
         'image'  => 'require',
         'name'  => 'require',

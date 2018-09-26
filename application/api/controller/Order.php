@@ -13,6 +13,7 @@ use app\api\model\ActiveOrder;
 use app\api\validate\IDMustRequiredValidate;
 use app\api\validate\OrderValidate;
 use app\lib\exception\OrderStatusException;
+use think\Log;
 use think\Request;
 use app\api\service\Order as orderService;
 class Order extends BaseController
@@ -29,16 +30,15 @@ class Order extends BaseController
          * 1、session是否存在
          * 2、是否有库存
          * */
-       // $params = Request::instance()->param();
         $params = input('post.','','trim');
-        //$data = array();
-//        foreach ($params as $key => $value){
-//            $data[$key] = $value;
-//        }
-//        print_r($data);exit;
-        //生成订单。。。
-        $order = orderService::GenerateOrder($params);
-        var_dump($order);die;
+        //生成商户订单。。。
+        $id = orderService::GenerateOrder($params);
+        if($id){
+            //生成未定预订单
+            //return $this->makeWxPreOrder($order);
+            //返回订单id
+            return $id;
+        }
     }
     public function getAllOrder(){
         $uid = $_SESSION['user']->id;
@@ -88,6 +88,5 @@ class Order extends BaseController
             'msg' => 'success',
             'data' => $order
         ]);
-        //var_dump($order);die;
     }
 }
