@@ -8,6 +8,7 @@
 
 namespace app\api\service;
 
+use app\api\model\ActiveOrder;
 use think\Loader;
 use think\Log;
 use app\lib\exception\OrderStatusException;
@@ -24,8 +25,22 @@ class Pay
         }
         $this->orderID = $orderID;
     }
-    public  function pay(){
-
+    public function pay(){
+        $uid = $_SESSION['user']->id;
+        $order = ActiveOrder::where('id','=', $this->orderID)->find();
+        if(!empty($order->uid) && ($order->uid != $uid)){
+            throw new OrderStatusException([
+                'msg' => '订单不存在或订单与用户不匹配',
+                'errorCode' => '80007'
+            ]);
+        }
+        if($order->status != 0){
+            throw new OrderStatusException([
+                'msg' => '订单已支付过',
+                'errorCode' => '80003'
+            ]);
+        }
+        return $this->makeWxPreOrder($order);
     }
     private function makeWxPreOrder($order){
         $wxOrderData = new \WxPayUnifiedOrder();
@@ -54,5 +69,27 @@ class Pay
             Log::record('获取预支付订单失败','error');
             // throw new Exception('获取预支付订单失败');
         }
+        $this->recordPreOrder($wxOrder);
+        return $this->sign($wxOrder);
+    }
+    private function recordPreOrder($wxOrder){
+        // 必须是update，每次用户取消支付后再次对同一订单支付，prepay_id是不同的
+        ActiveOrder::where('id', '=', $this->orderID)
+            ->update(['prepay_id' => $wxOrder['prepay_id']]);
+    }
+    //向微信返回签名,时序图6-7步
+    private function sign($wxOrder){
+        $jsApiPayData = new \WxPayJsApiPay();
+        $jsApiPayData->SetAppid(config('wx.app_id'));
+        $jsApiPayData->SetTimeStamp((string)time());
+        $rand = md5(time() . mt_rand(0, 1000));
+        $jsApiPayData->SetNonceStr($rand);
+        $jsApiPayData->SetPackage('prepay_id=' . $wxOrder['prepay_id']);
+        $jsApiPayData->SetSignType('md5');
+        $sign = $jsApiPayData->MakeSign();
+        $rawValues = $jsApiPayData->GetValues();
+        $rawValues['paySign'] = $sign;
+        unset($rawValues['appId']);
+        return $rawValues;
     }
 }

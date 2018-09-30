@@ -5,16 +5,12 @@ use think\Exception;
 
 class User {
     protected $openid;
-    public function addUser($openid =null){
-        $this->openid = $openid;
-        $username = "puqiang";
-        $password = md5("chaiwei".$_SERVER['REQUEST_TIME'].rand(1000,9999));
-        $wx_avatar = '/upload/img/sadsadas.jpg';
+    public function addUser($wxUser){
+        $this->openid = $wxUser['openid'];
         $result = UserModel::create([
-            "username" => $username,
-            "password" => $password,
-            "openid" => $openid,
-            "wx_avatar" => $wx_avatar
+            "username" => $wxUser['nickname'],
+            "openid" => $this->openid,
+            "avatar" => $wxUser['headimgurl']
         ]);
         if(!empty($result)){
             return $result;

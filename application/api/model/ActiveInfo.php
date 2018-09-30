@@ -32,17 +32,17 @@ class ActiveInfo extends BaseModel
     public function comments(){
         return $this->hasMany('ActiveComment','active_info_id','id');
     }
-    public static function getActivesByFilterPaginate($filter,$page = 1,$size = 20){
+    public static function getActivesByFilterPaginate($filter,$cid,$page = 1,$size = 10){
+        $query = self::with('tags.tagsDetail');
         if (isset($filter)){
-            return  $query = self::with('tags.tagsDetail')->where('name|from','like','%'.trim($filter).'%')->paginate($size, true, [
-                'page' => $page
-            ]);
-        }else{
-            return $query = self::with('tags.tagsDetail')->paginate($size, true, [
-                'page' => $page
-            ]);
+            $query = $query->where('name|from','like','%'.trim($filter).'%');
         }
-
+        if (isset($cid)){
+            $query = $query->where('active_category_id','=',$cid);
+        }
+        return $query = $query->paginate($size, true, [
+            'page' => $page
+        ]);
     }
     public  function getDetail(){
         return $this->belongsToMany('Tags','active_tags','tag_id','active_id');

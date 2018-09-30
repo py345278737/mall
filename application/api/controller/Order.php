@@ -49,7 +49,7 @@ class Order extends BaseController
                 'errorCode' => '80005'
             ]);
         }
-        $order = collection($order)->toArray();
+        $order = collection($order)->hidden(['prepay_id'])->toArray();
         return json([
             'msg' => 'success',
             'data' => $order

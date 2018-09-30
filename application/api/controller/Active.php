@@ -20,7 +20,7 @@ use think\Request;
 class Active
 {
     /*
-     *  通过type取分类下的所有活动
+     *  通过分配表的type获取分类下的所有活动
      *  param
      *  @string type
      * */
@@ -29,12 +29,16 @@ class Active
         $request = Request::instance();
         $type = $request->param('type','');
         $actives = ActiveCategory::with('actives')->with('actives.tags.tagsDetail')->where('type',$type)->find();
+        $actives = $actives->toArray()['actives'];
+        foreach ($actives as &$value){
+            $value['period'] = diffBetweenTwoDays($value['s_time'],$value['e_time']) + 1;
+        }
         if (empty($actives)){
             throw new MissException();
         }
         return json([
             'msg' => 'success',
-            'data' => $actives->toArray()
+            'data' => $actives
         ],200);
     }
     /*
@@ -45,14 +49,17 @@ class Active
      * @size int required
      * @return json
      * */
-    public function getActivesByFilterPaginate($filter = null,$page = 1,$size = 20){
+    public function getActivesByFilterPaginate($filter = null,$cid = null,$page = 1,$size = 10){
         (new PagingParameter())->goCheck();
         $request = Request::instance();
         $parms = $request->param();
         if (isset($parms['filter'])){
             $filter = $parms['filter'];
         }
-        $pagingActives = ActiveInfo::getActivesByFilterPaginate($filter,$parms['page'],$parms['size']);
+        if(isset($parms['cid'])){
+            $cid = $parms['cid'];
+        }
+        $pagingActives = ActiveInfo::getActivesByFilterPaginate($filter,$cid,$parms['page'],$parms['size']);
         if ($pagingActives->isEmpty()){
             throw new MissException();
         }

@@ -11,7 +11,7 @@ namespace app\api\controller;
 use app\api\validate\IDMustRequiredValidate;
 use think\Loader;
 use app\api\service\Pay as PayService;
-
+use app\api\service\WxNotify;
 Loader::import('WxPay.WxPay', EXTEND_PATH, '.Api.php');
 
 class Pay extends BaseController
@@ -26,4 +26,9 @@ class Pay extends BaseController
         return $pay->pay();
     }
 
+    //微信支付回调接口
+    public function notify(){
+        $wxNotify = new WxNotify();
+        $wxNotify->Handle();
+    }
 }
