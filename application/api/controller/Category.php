@@ -10,6 +10,7 @@ namespace app\api\controller;
 
 
 use app\api\model\ActiveCategory;
+use app\api\model\ActiveTags;
 use app\api\validate\IDMustRequiredValidate;
 use app\lib\exception\MissException;
 use think\Request;
@@ -36,11 +37,11 @@ class Category
     /*
     *   通过分类id获取分类下所有活动
      */
-    public function getActiveByCatrgotyId(){
+    public function getActiveByCatrgoryId(){
         (new IDMustRequiredValidate())->goCheck();
         $request = Request::instance();
         $id = $request->param('id','');
-        $actives = ActiveCategory::with('actives')->with('actives.tags.tagsDetail')->where('id',$id)->find();
+        $actives = ActiveCategory::with('actives')->where('id',$id)->find();
         if (empty($actives)){
             throw new MissException();
         }
@@ -48,6 +49,8 @@ class Category
         $arr = $actives->toArray()['actives'];
         foreach ($arr as &$value){
             $value['period'] = diffBetweenTwoDays($value['s_time'],$value['e_time']) + 1;
+            $value['tags'] = ActiveTags::all($value['active_tags_ids']);
+            unset($value['active_tags_ids']);
         }
         return json([
             'msg' => 'success',

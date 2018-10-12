@@ -13,7 +13,7 @@ class ActiveTags extends BaseModel
 {
     protected $hidden = ['id','createtime','tag_id','active_id','pivot'];
 
-    public function tagsDetail(){
-        return $this->belongsTo('Tags','tag_id','id');
-    }
+//    public function tagsDetail(){
+//        return $this->belongsTo('Tags','tag_id','id');
+//    }
 }

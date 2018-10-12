@@ -16,5 +16,4 @@ class ActiveCategory extends BaseModel
     public function actives(){
         return $this->hasMany('ActiveInfo','active_category_id','id');
     }
-
 }
