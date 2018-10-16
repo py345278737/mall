@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version: 5.5.53)
-# Date: 2018-09-20 18:33:55
+# Date: 2018-10-15 17:34:00
 # Generator: MySQL-Front 5.3  (Build 4.234)
 
 /*!40101 SET NAMES utf8 */;
@@ -23,7 +23,7 @@ CREATE TABLE `fa_active_category` (
 #
 
 /*!40000 ALTER TABLE `fa_active_category` DISABLE KEYS */;
-INSERT INTO `fa_active_category` VALUES (1,'主题',1536817797,NULL,'1'),(2,'春游',1536817797,NULL,'1');
+INSERT INTO `fa_active_category` VALUES (1,'国内研学',1536817797,'static/picture/2017120601_3.svg','1'),(2,'国际游学',1536817797,'static/picture/2017120602_3.svg','1'),(3,'亲子活动',0,'static/picture/2017120603_3.svg','1'),(4,'海外求学',0,'static/picture/2017120604_3.svg','1'),(5,'团建拓展',0,'static/picture/2017120605_3.svg','1'),(6,'企业培训',0,'static/picture/2017120606_3.svg','1'),(7,'私人订制',0,'static/picture/2017120607_3.svg','1'),(8,'家庭教育',0,'static/picture/2017120608_3.svg','1'),(9,'军事营',0,'http://s.114study.com/images/admin_xly_upload/upload/xly/20180226174803147938.jpg','2'),(10,'少年营',0,'http://s.114study.com/images/admin_xly_upload/upload/xly/20180226174803147938.jpg','2'),(11,'春游',0,'http://s.114study.com/images/admin_xly_upload/upload/xly/20180226174803147938.jpg','2'),(12,'秋游',0,'http://s.114study.com/images/admin_xly_upload/upload/xly/20180226174803147938.jpg','2'),(13,'推荐活动',0,NULL,'3'),(14,'往期回顾',0,NULL,'4');
 /*!40000 ALTER TABLE `fa_active_category` ENABLE KEYS */;
 
 #
@@ -48,7 +48,7 @@ CREATE TABLE `fa_active_comment` (
 #
 
 /*!40000 ALTER TABLE `fa_active_comment` DISABLE KEYS */;
-INSERT INTO `fa_active_comment` VALUES (4,1,1,'<p>w122</p>',0,1537421385,1537421385,'normal'),(5,1,2,'<p>12</p>',21,1537421412,1537421412,'normal');
+INSERT INTO `fa_active_comment` VALUES (4,1,1,'<p>w122</p>',1,1537421385,1537421385,'normal'),(5,1,1,'<p>12</p>',5,1537421412,1537421412,'normal');
 /*!40000 ALTER TABLE `fa_active_comment` ENABLE KEYS */;
 
 #
@@ -70,7 +70,7 @@ CREATE TABLE `fa_active_img` (
 #
 
 /*!40000 ALTER TABLE `fa_active_img` DISABLE KEYS */;
-INSERT INTO `fa_active_img` VALUES (1,'产品管理','21','/uploads/20180920/9c626a541560d4ea45bce008a2997592.png','12');
+INSERT INTO `fa_active_img` VALUES (1,'产品管理','http://localhost/qzbx/static/images/ym.jpg','http://localhost/qzbx/static/images/ym.jpg','12');
 /*!40000 ALTER TABLE `fa_active_img` ENABLE KEYS */;
 
 #
@@ -98,7 +98,7 @@ CREATE TABLE `fa_active_info` (
   `status` enum('0','1','2') NOT NULL DEFAULT '1' COMMENT '状态:0=隐藏,1=正常,2=推荐',
   `createtime` int(10) NOT NULL,
   `yingqi` longtext NOT NULL COMMENT '营期',
-  `evaluate` text COMMENT '活动评价',
+  `active_tags_ids` varchar(255) DEFAULT NULL COMMENT '标签id',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='活动表';
 
@@ -107,7 +107,7 @@ CREATE TABLE `fa_active_info` (
 #
 
 /*!40000 ALTER TABLE `fa_active_info` DISABLE KEYS */;
-INSERT INTO `fa_active_info` VALUES (1,'幺儿去那里','幺儿去那里',3000.00,'遂宁','成都',7,'学生，中年人',1536818342,1536818342,'1','/uploads/20180913/5447d51a6014061d66af854444c9fcd2.jpg','/uploads/20180913/5447d51a6014061d66af854444c9fcd2.jpg,/uploads/20180913/dbb8afe300c648045b47df353c4d1447.jpg','<p>大</p>','<p>颠三倒四多所</p>','<p>大萨达所大</p>','1',1536818445,'',NULL),(2,'幺女去那里','',3200.00,'','',0,'',0,0,'','','','','','','1',0,'',NULL);
+INSERT INTO `fa_active_info` VALUES (1,'幺儿去那里','幺儿去那里',3000.00,'遂宁','成都',7,'学生，中年人',1536818342,1539570000,'13','http://s.114study.com/images/admin_xly_upload/upload/xly/big/2018090518392230158.png','/uploads/20180913/5447d51a6014061d66af854444c9fcd2.jpg,/uploads/20180913/dbb8afe300c648045b47df353c4d1447.jpg','<p>大</p>','<p>颠三倒四多所</p>','<p>大萨达所大</p>','1',1536818445,'2018-09-06:2018-09-07:3000,2018-09-07:2018-09-08:4000','1,2,3'),(2,'幺女去那里','',3200.00,'重庆','重庆',3,'学生，中年人',1536818342,1539570000,'13','http://s.114study.com/images/admin_xly_upload/upload/xly/big/2018090518392230158.png','','','','','1',1536818445,'2018-09-06:2018-09-07:3000,2018-09-07:2018-09-08:4000','2,3,4'),(3,'回顾一下','昨天去了乐山大佛',5000.00,'乐山','乐山',8,'初中生,高中生',1536818342,1539570000,'13','http://s.114study.com/images/admin_xly_upload/upload/xly/big/2018090518392230158.png','','','','','1',1536818445,'2018-09-06:2018-09-07:3000,2018-09-07:2018-09-08:4000','1,2,4'),(4,'明天去乐山','乐山好耍哦',1000.00,'乐山','乐山',8,'小学生，初中生',1536818342,1539570000,'13','http://s.114study.com/images/admin_xly_upload/upload/xly/big/2018090518392230158.png','','','','','1',1536818445,'2018-09-06:2018-09-07:3000,2018-09-07:2018-09-08:4000','2,3,4'),(5,'明天去遂宁','遂宁真好耍',1200.00,'遂宁','遂宁',3,'学生，中年人',1536818342,1539570000,'13','http://s.114study.com/images/admin_xly_upload/upload/xly/big/2018090518392230158.png','','','','','1',0,'2018-09-06:2018-09-07:3000,2018-09-07:2018-09-08:4000','1,2,3'),(6,'后天去哪里','去',3200.00,'南充','南充',3,'学生，中年人',1536818342,1539570000,'13','http://s.114study.com/images/admin_xly_upload/upload/xly/big/2018090518392230158.png','','','','','1',0,'2018-09-06:2018-09-07:3000,2018-09-07:2018-09-08:4000','1,2,3'),(7,'去昆明','去大理',500.00,'大理','大理',6,'学生，中年人',1536818342,1539570000,'13','','','','','','1',0,'2018-09-06:2018-09-07:3000,2018-09-07:2018-09-08:4000','1,2,3');
 /*!40000 ALTER TABLE `fa_active_info` ENABLE KEYS */;
 
 #
@@ -121,32 +121,59 @@ CREATE TABLE `fa_active_order` (
   `wx_order_sn` varchar(255) DEFAULT NULL COMMENT '微信订单号',
   `act_id` int(10) DEFAULT NULL COMMENT '活动id',
   `name` varchar(255) NOT NULL COMMENT '活动名称',
-  `form` varchar(255) NOT NULL COMMENT '出发地',
+  `from` varchar(255) NOT NULL DEFAULT '' COMMENT '出发地',
   `to` varchar(255) NOT NULL COMMENT '目的地',
   `s_time` int(10) NOT NULL COMMENT '出发时间',
   `e_time` int(10) NOT NULL COMMENT '返回时间',
   `number` int(50) NOT NULL DEFAULT '1' COMMENT '数量',
-  `price` float(50,2) NOT NULL DEFAULT '0.00' COMMENT '订单总金额',
+  `price` decimal(7,2) NOT NULL DEFAULT '0.00' COMMENT '订单总金额',
   `uid` varchar(255) DEFAULT NULL COMMENT 'uid',
   `contact` varchar(255) NOT NULL COMMENT '联系人',
   `mobile` varchar(255) NOT NULL COMMENT '手机号码',
   `openid` varchar(255) NOT NULL COMMENT 'openid',
   `wx_name` varchar(255) NOT NULL COMMENT '微信名称',
-  `wx_avatar` varchar(255) NOT NULL COMMENT '微信头像',
+  `wx_avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '微信头像',
   `createtime` int(10) NOT NULL COMMENT '下单时间',
   `paytime` int(10) DEFAULT NULL COMMENT '支付时间',
   `yingqi` varchar(255) NOT NULL COMMENT '营期',
   `status` enum('0','1','2','3') NOT NULL COMMENT '状态:0=待支付,1=待出行,2=已完成,3=已取消',
-  `idcard` varchar(18) DEFAULT NULL COMMENT '身份证号',
+  `idcard` varchar(255) DEFAULT NULL COMMENT '身份证号',
+  `thumbnail` varchar(500) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `prepay_id` varchar(100) DEFAULT NULL COMMENT '微信prepay_id',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='活动订单表';
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='活动订单表';
 
 #
 # Data for table "fa_active_order"
 #
 
 /*!40000 ALTER TABLE `fa_active_order` DISABLE KEYS */;
+INSERT INTO `fa_active_order` VALUES (1,'B921197091830048',NULL,1,'幺儿去哪儿','乐山','马边',1536422400,1536422400,2,1600.00,'2','蒲强','18508254044','asdasdsadsxzczxcasqweqwdsa','puqiang','',1537519709,NULL,'2018-09-09','0','51090219910907287X','',NULL),(2,'B921197662550087',NULL,1,'幺儿去哪儿','乐山','马边',1536422400,1536422400,2,1600.00,'2','蒲强','18508254044','asdasdsadsxzczxcasqweqwdsa','puqiang','',1537519766,NULL,'2018-09-09','0','51090219910907287X','',NULL),(3,'B926549074060085',NULL,1,'改为create了','乐山','马边',1537891200,1537977600,2,1600.00,'2','蒲强','18508254044','asdasdsadsxzczxcasqweqwdsa','puqiang','',1537954907,NULL,'2018-09-26','0','51090219910907287X','{\'thumbail\':\'imaghes/dasdas/dasds.jpg\',\'photos\':[{\'url\':\'image/asdas/ascxzc/sss.jpg\'}]}',NULL),(4,'B926556309340062',NULL,1,'改为create了','乐山','马边',1537891200,1537977600,2,1600.00,'2','蒲强','18508254044','asdasdsadsxzczxcasqweqwdsa','puqiang','',1537955630,NULL,'2018-09-26','0','51090219910907287X','{\'thumbail\':\'imaghes/dasdas/dasds.jpg\',\'photos\':[{\'url\':\'image/asdas/ascxzc/sss.jpg\'}]}',NULL);
 /*!40000 ALTER TABLE `fa_active_order` ENABLE KEYS */;
+
+#
+# Structure for table "fa_active_suggest"
+#
+
+DROP TABLE IF EXISTS `fa_active_suggest`;
+CREATE TABLE `fa_active_suggest` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `type` varchar(255) NOT NULL COMMENT '反馈类型',
+  `content` text NOT NULL COMMENT '反馈内容',
+  `createtime` int(10) NOT NULL,
+  `image` varchar(255) NOT NULL COMMENT '图片地址',
+  `phone` varchar(255) NOT NULL COMMENT '电话',
+  `name` varchar(255) NOT NULL COMMENT '姓名',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+#
+# Data for table "fa_active_suggest"
+#
+
+/*!40000 ALTER TABLE `fa_active_suggest` DISABLE KEYS */;
+INSERT INTO `fa_active_suggest` VALUES (1,'0','建议添加什么功能',0,'{\'thumbail\':\'imaghes/dasdas/dasds.jpg\',\'photos\':[{\'url\':\'image/asdas/ascxzc/sss.jpg\'}]}','18508254044','蒲强'),(2,'0','建议添加什么功能',0,'{\'thumbail\':\'imaghes/dasdas/dasds.jpg\',\'photos\':[{\'url\':\'image/asdas/ascxzc/sss.jpg\'}]}','18508254044','蒲强');
+/*!40000 ALTER TABLE `fa_active_suggest` ENABLE KEYS */;
 
 #
 # Structure for table "fa_active_tags"
@@ -155,8 +182,8 @@ CREATE TABLE `fa_active_order` (
 DROP TABLE IF EXISTS `fa_active_tags`;
 CREATE TABLE `fa_active_tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `active_id` int(10) DEFAULT NULL,
-  `tag_id` int(10) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL COMMENT '标签名',
+  `createtime` int(10) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -165,7 +192,7 @@ CREATE TABLE `fa_active_tags` (
 #
 
 /*!40000 ALTER TABLE `fa_active_tags` DISABLE KEYS */;
-INSERT INTO `fa_active_tags` VALUES (1,1,1),(2,1,2),(3,2,1),(4,2,2);
+INSERT INTO `fa_active_tags` VALUES (1,'标签1',1536818342),(2,'标签2',1536818342),(3,'标签3',1536818342),(4,'标签4',1536818342);
 /*!40000 ALTER TABLE `fa_active_tags` ENABLE KEYS */;
 
 #
@@ -835,7 +862,7 @@ CREATE TABLE `fa_user` (
   KEY `username` (`username`),
   KEY `email` (`email`),
   KEY `mobile` (`mobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='会员表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='会员表';
 
 #
 # Data for table "fa_user"
